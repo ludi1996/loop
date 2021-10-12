@@ -2,3 +2,6 @@
 cmake-build-debug/
 lib/
 Vocabulary/
+bin/
+Thirdparty/g2o/build/
+Thirdparty/DBoW2/build/

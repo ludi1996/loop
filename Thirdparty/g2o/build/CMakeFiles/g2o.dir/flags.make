@@ -7,11 +7,11 @@ C_FLAGS =   -Wall -W -O3 -DNDEBUG -O3 -march=native -fPIC
 
 C_DEFINES = -DUNIX -Dg2o_EXPORTS
 
-C_INCLUDES = -I/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/core -I/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/types -I/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/stuff -I/usr/include/eigen3 
+C_INCLUDES = -I/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/core -I/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/types -I/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/stuff -I/usr/include/eigen3 
 
 CXX_FLAGS =   -Wall -W -O3 -DNDEBUG -O3 -march=native -fPIC  
 
 CXX_DEFINES = -DUNIX -Dg2o_EXPORTS
 
-CXX_INCLUDES = -I/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/core -I/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/types -I/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/stuff -I/usr/include/eigen3 
+CXX_INCLUDES = -I/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/core -I/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/types -I/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/stuff -I/usr/include/eigen3 
 

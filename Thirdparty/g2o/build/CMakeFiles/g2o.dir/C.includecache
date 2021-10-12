@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/g2o/stuff/os_specific.c
+/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/g2o/stuff/os_specific.c
 os_specific.h
-/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/g2o/stuff/os_specific.h
+/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/g2o/stuff/os_specific.h
 
-/home/ludi/catkin_ws/src/ORB_SLAM3/Thirdparty/g2o/g2o/stuff/os_specific.h
+/home/ludi/catkin_ws/src/loop/Thirdparty/g2o/g2o/stuff/os_specific.h
 stdio.h
 -
 stdlib.h
