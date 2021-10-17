@@ -62,6 +62,11 @@ public:
 
     ~Tracking();
 
+    //MyLoop
+    void MyCreateNewKeyFrame();
+    void MyBuildFrame(const cv::Mat &im, const double &timestamp);
+
+    KeyFrame* mpCurrentKF;
     // Parse the config file
     bool ParseCamParamFile(cv::FileStorage &fSettings);
     bool ParseORBParamFile(cv::FileStorage &fSettings);

@@ -23,6 +23,8 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "Mono");
     ros::start();
+    ros::Rate loop_rate(10);
+
 
     if(argc != 3)
     {
@@ -38,8 +40,13 @@ int main(int argc, char **argv)
 
     ros::NodeHandle nodeHandler;
     ros::Subscriber sub = nodeHandler.subscribe("/camera/image_raw", 1, &ImageGrabber::GrabImage,&igb);
+    while (ros::ok())
+    {
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
 
-    ros::spin();
+
 
     // Stop all threads
     SLAM.Shutdown();
@@ -63,7 +70,8 @@ void ImageGrabber::GrabImage(const sensor_msgs::ImageConstPtr& msg)
         return;
     }
 
-    mpSLAM->TrackMonocular(cv_ptr->image,cv_ptr->header.stamp.toSec());
+    //mpSLAM->TrackMonocular(cv_ptr->image,cv_ptr->header.stamp.toSec());
+    mpSLAM->MyLoopDetect(cv_ptr->image,cv_ptr->header.stamp.toSec());
 }
 
 

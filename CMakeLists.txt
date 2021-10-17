@@ -133,10 +133,6 @@ include/TwoViewReconstruction.h
 include/Config.h
 )
 
-add_library(Myloop SHARED
-include/Myloop.h
-src/Myloop.cc
-)
 
 add_subdirectory(Thirdparty/g2o)
 
@@ -147,7 +143,6 @@ ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
-Myloop
 -lboost_serialization
 -lcrypto
 )

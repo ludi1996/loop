@@ -40,8 +40,8 @@ Verbose::eLevel Verbose::th = Verbose::VERBOSITY_NORMAL;
 
 System::System(const string &strVocFile, const string &strSettingsFile, const eSensor sensor,
                const bool bUseViewer, const int initFr, const string &strSequence, const string &strLoadingFile):
-    mSensor(sensor), mpViewer(static_cast<Viewer*>(NULL)), mbReset(false), mbResetActiveMap(false),
-    mbActivateLocalizationMode(false), mbDeactivateLocalizationMode(false)
+        mSensor(sensor), mpViewer(static_cast<Viewer*>(NULL)), mbReset(false), mbResetActiveMap(false),
+        mbActivateLocalizationMode(false), mbDeactivateLocalizationMode(false), newLidarKfIsCreated(false)
 {
     // Output welcome message
     cout << endl <<
@@ -268,6 +268,53 @@ cv::Mat System::TrackRGBD(const cv::Mat &im, const cv::Mat &depthmap, const doub
     mTrackedKeyPointsUn = mpTracker->mCurrentFrame.mvKeysUn;
     return Tcw;
 }
+
+
+void System::MyLoopDetect(const cv::Mat &im, const double &timestamp)
+    {
+        newLidarKfIsCreated = true;
+        //newLidarKfIsCreated = false;
+        //mpTracker->mCurrentFrame
+        //cout <<"1"<< endl;
+
+        mpTracker->MyBuildFrame(im,timestamp);
+        //cout <<"2"<< endl;
+
+        mpTracker->MyCreateNewKeyFrame();
+        //cout <<"3"<< endl;
+
+        mpTracker->mpCurrentKF->ComputeBoW();
+
+        vector<KeyFrame*> LoopCandidates;
+        LoopCandidates = mpKeyFrameDatabase->MyDetectLoopCandidates(mpTracker->mpCurrentKF,0.04);
+
+
+        mpKeyFrameDatabase->add(mpTracker->mpCurrentKF);
+
+        if (LoopCandidates.size() != 0){
+            for(int i=0;i<6;i++)
+                cout << "Loop!!!!" << LoopCandidates.size() << endl;
+            cout << "==================" << LoopCandidates.size() << endl;
+
+        }
+//        cout << "LoopCandidates.size = " << LoopCandidates.size() << endl;
+//        cout.precision(5);
+//        cout.flags(cout.fixed);
+//        cout << "TimeStamp: " << mpTracker->mCurrentFrame.mTimeStamp << endl;
+//        cout <<"KFDB.size = "<<mpKeyFrameDatabase->size()<< endl;
+
+
+
+
+
+
+
+
+
+
+    }
+
+
 
 cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp, const vector<IMU::Point>& vImuMeas, string filename)
 {

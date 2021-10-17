@@ -51,6 +51,8 @@ public:
 
     KeyFrameDatabase(const ORBVocabulary &voc);
 
+    int size(){return cnt;}
+
    void add(KeyFrame* pKF);
 
    void erase(KeyFrame* pKF);
@@ -60,6 +62,8 @@ public:
 
    // Loop Detection(DEPRECATED)
    std::vector<KeyFrame *> DetectLoopCandidates(KeyFrame* pKF, float minScore);
+   //MyLoop
+   std::vector<KeyFrame *> MyDetectLoopCandidates(KeyFrame* pKF, float minScore);
 
    // Loop and Merge Detection
    void DetectCandidates(KeyFrame* pKF, float minScore,vector<KeyFrame*>& vpLoopCand, vector<KeyFrame*>& vpMergeCand);
@@ -73,6 +77,9 @@ public:
    void SetORBVocabulary(ORBVocabulary* pORBVoc);
 
 protected:
+
+    //MyLoop
+    int cnt;
 
   // Associated vocabulary
   const ORBVocabulary* mpVoc;

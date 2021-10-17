@@ -54,6 +54,8 @@ class KeyFrame
 public:
     KeyFrame();
     KeyFrame(Frame &F, Map* pMap, KeyFrameDatabase* pKFDB);
+    //MyLoop
+    KeyFrame(Frame &F, KeyFrameDatabase* pKFDB);
 
     // Pose functions
     void SetPose(const cv::Mat &Tcw);

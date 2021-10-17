@@ -1328,6 +1328,70 @@ cv::Mat Tracking::GrabImageRGBD(const cv::Mat &imRGB,const cv::Mat &imD, const d
     return mCurrentFrame.mTcw.clone();
 }
 
+void Tracking::MyCreateNewKeyFrame()
+    {
+
+        KeyFrame* pKF = new KeyFrame(mCurrentFrame,mpKeyFrameDB);
+        mpReferenceKF = pKF;
+        mpCurrentKF = pKF;
+        mCurrentFrame.mpReferenceKF = pKF;
+
+        if(mpLastKeyFrame)
+        {
+            pKF->mPrevKF = mpLastKeyFrame;
+            mpLastKeyFrame->mNextKF = pKF;
+        }
+        else
+            Verbose::PrintMess("No last KF in KF creation!!", Verbose::VERBOSITY_NORMAL);
+
+
+        mnLastKeyFrameId = mCurrentFrame.mnId;
+        mpLastKeyFrame = pKF;
+        //cout  << "end creating new KF" << endl;
+
+
+
+    }
+
+
+void Tracking::MyBuildFrame(const cv::Mat &im, const double &timestamp)
+    {
+        mImGray = im;
+
+        if(mImGray.channels()==3)
+        {
+            if(mbRGB)
+                cvtColor(mImGray,mImGray,cv::COLOR_RGB2GRAY);
+            else
+                cvtColor(mImGray,mImGray,cv::COLOR_BGR2GRAY);
+        }
+        else if(mImGray.channels()==4)
+        {
+            if(mbRGB)
+                cvtColor(mImGray,mImGray,cv::COLOR_RGBA2GRAY);
+            else
+                cvtColor(mImGray,mImGray,cv::COLOR_BGRA2GRAY);
+        }
+
+        if (mSensor == System::MONOCULAR)
+        {
+            if(mState==NOT_INITIALIZED || mState==NO_IMAGES_YET ||(lastID - initID) < mMaxFrames)
+                mCurrentFrame = Frame(mImGray,timestamp,mpIniORBextractor,mpORBVocabulary,mpCamera,mDistCoef,mbf,mThDepth);
+            else
+                mCurrentFrame = Frame(mImGray,timestamp,mpORBextractorLeft,mpORBVocabulary,mpCamera,mDistCoef,mbf,mThDepth);
+        }
+
+        if (mState==NO_IMAGES_YET)
+            t0=timestamp;
+
+        mCurrentFrame.mNameFile = "";
+        mCurrentFrame.mnDataset = mnNumDataset;
+
+
+        lastID = mCurrentFrame.mnId;
+
+    }
+
 
 cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im, const double &timestamp, string filename)
 {
